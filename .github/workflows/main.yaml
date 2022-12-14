@@ -1,4 +1,6 @@
-name: Mobile Dev Action
+# .github/workflows/android.yaml
+
+name: Build and upload to Maestro Cloud
 
 on:
   push:
@@ -13,18 +15,8 @@ jobs:
       app: app/build/outputs/apk/debug
     steps:
       - uses: actions/checkout@v3
-      - name: set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: 11
-          distribution: 'temurin'
-          cache: gradle
-          workspace: .maestro
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew assembleDebug
+      - uses: actions/setup-java@v3
+      - run: ./gradlew assembleDebug
       - uses: mobile-dev-inc/action-maestro-cloud@v1.1.1
         with:
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
