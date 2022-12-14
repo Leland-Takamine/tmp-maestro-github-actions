@@ -18,6 +18,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: 11
+          distribution: 'temurin'
       - run: ./gradlew assembleDebug
       - uses: mobile-dev-inc/action-maestro-cloud@v1.1.1
         with:
